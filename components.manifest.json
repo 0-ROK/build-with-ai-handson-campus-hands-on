@@ -1,0 +1,12 @@
+{
+  "components": [
+    {
+      "name": "PostCard",
+      "path": "src/components/blog/PostCard.tsx",
+      "replaceable": true,
+      "props": {
+        "post": "PostSummary"
+      }
+    }
+  ]
+}

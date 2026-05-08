@@ -1,18 +1,45 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, test } from "vitest";
-
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import Page from "../src/app/page";
 
-describe("Page", () => {
-  test("renders the blog preparation message", () => {
-    render(<Page />);
+const getPublishedPostsMock = vi.hoisted(() => vi.fn());
 
-    expect(screen.getByText("DIY-ary")).toBeDefined();
-    expect(
-      screen.getByRole("heading", { level: 1, name: "블로그 준비 중" }),
-    ).toBeDefined();
-    expect(
-      screen.getByText("커밋 전 품질 게이트부터 단단히 세웁니다."),
-    ).toBeDefined();
+// Mock the contentService
+vi.mock("@/content", () => ({
+  contentService: {
+    getPublishedPosts: getPublishedPostsMock,
+  },
+}));
+
+describe("Home Page", () => {
+  beforeEach(() => {
+    getPublishedPostsMock.mockResolvedValue([
+      {
+        description: "Description",
+        id: "1",
+        publishedAt: "2026-05-08",
+        slug: "test-post",
+        tags: ["test"],
+        title: "Test Post",
+      },
+    ]);
+  });
+
+  test("renders the blog title and posts", async () => {
+    // For Server Components, we can call them as functions in tests
+    const PageComponent = await Page();
+    render(PageComponent);
+
+    expect(screen.getByText("Engineering Blog")).toBeDefined();
+    expect(screen.getByText("Test Post")).toBeDefined();
+  });
+
+  test("renders an empty state without posts", async () => {
+    getPublishedPostsMock.mockResolvedValue([]);
+
+    const PageComponent = await Page();
+    render(PageComponent);
+
+    expect(screen.getByText("아직 작성된 글이 없습니다.")).toBeDefined();
   });
 });

@@ -1,0 +1,12 @@
+{
+  "colors": {
+    "primary": "#2563EB",
+    "background": "#FFFFFF",
+    "backgroundDark": "#0F172A",
+    "text": "#1E293B",
+    "textDark": "#F8FAFC"
+  },
+  "typography": {
+    "fontFamily": "Inter, sans-serif"
+  }
+}
