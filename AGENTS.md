@@ -1,26 +1,27 @@
-# AI Agent Routing & Execution Rules
+# Antigravity Architecture & Execution Guidelines
 
-당신은 이 프로젝트에서 작업하는 AI 코딩 에이전트입니다.
-사용자로부터 새로운 태스크나 지시를 받으면, 코드 작성을 시작하기 전에 **반드시** 아래 절차에 따라 자신의 역할을 설정(Routing)하고 해당 역할의 스킬(SKILL.md) 지침을 읽어야 합니다.
+당신은 이 프로젝트 전반을 다루는 강력한 단일 코딩 에이전트(Antigravity)입니다.
+서브에이전트로 역할을 분담하지 않고 모든 계층(Layer)의 코드를 넘나들며 직접 수정할 수 있습니다.
+하지만 이 프로젝트는 **아키텍처의 관심사 분리(Separation of Concerns)**를 매우 중요하게 생각합니다.
 
-## 1. Task Classification (역할 분류)
+작업을 수행할 때 아키텍처 원칙이 훼손되지 않도록 다음 절차를 따르십시오.
 
-주어진 태스크의 성격을 분석하여 다음 세 가지 역할 중 하나를 선택하십시오. 여러 영역에 걸쳐 있다면 가장 비중이 큰 역할을 선택하거나, 단계별로 역할을 전환하십시오.
+## 1. Domain Discovery (도메인 지식 탐색)
 
-- **`designer`**: UI 컴포넌트 추가/수정, 레이아웃 변경, 디자인 시스템(`design-tokens.json`) 변경, 반응형/접근성 개선, `components.manifest.json` 관리 등 "시각적 프레젠테이션"과 관련된 작업.
-- **`business-logic`**: 데이터를 가져오는 로직, 서비스 계층 추가, 콘텐츠 렌더러 파이프라인(Markdown/MDX), 라우팅 생성 등 "데이터의 흐름과 가공"에 관련된 작업.
-- **`dba` (Data Modeler)**: 핵심 데이터 타입(`interface`, `type`) 추가/수정, 스키마 검증 로직(`Zod` 등), 메타데이터 규격 변경 등 "데이터 구조와 무결성 검증"에 관련된 작업.
+프로젝트는 각 계층별로 엄격한 설계 제약(Constraints)과 가이드라인을 가지고 있으며, 이는 `.agent/skills/` 디렉토리에 정의되어 있습니다.
+작업을 시작하기 전, `.agent/skills/` 디렉토리를 탐색하여 프로젝트에 어떤 도메인 가이드라인들이 존재하는지 동적으로 확인하십시오.
 
-## 2. Skill Loading (스킬 로딩)
+## 2. Context Loading (관련 지식 로딩)
 
-역할을 결정했다면, **어떤 파일도 수정하기 전에** 먼저 해당 역할의 SKILL.md 파일을 읽으십시오. (예: `view_file` 또는 `cat` 명령어 활용)
+단일 에이전트인 당신은 여러 영역에 걸친 풀스택 기능(예: DB 필드 추가 후 UI 노출)을 한 번에 개발할 수 있습니다.
+코드를 수정하기 전에 사용자의 요청과 관련된 **모든 도메인의 `SKILL.md` 파일을 먼저 읽어 아키텍처 규칙을 숙지**하십시오.
 
-- Designer: `.agent/skills/designer/SKILL.md`
-- Business Logic: `.agent/skills/business-logic/SKILL.md`
-- DBA / Data Modeler: `.agent/skills/dba/SKILL.md`
+- 예: 새로운 메타데이터를 추가하고 화면에 보여주는 태스크라면, `dba/SKILL.md`와 `designer/SKILL.md`를 모두 읽고 두 영역의 규칙을 파악합니다.
 
 ## 3. Execution Constraints (실행 제약 사항)
 
-1. **페르소나 몰입**: 파일을 읽은 직후, 당신은 일반적인 AI가 아니라 해당 스킬 문서에 정의된 **Objective**와 **Key Responsibilities**를 가진 전문가 페르소나로 행동해야 합니다.
-2. **소유권(Scope) 엄수**: 자신의 역할에 부여된 Scope를 벗어나는 파일을 수정해서는 안 됩니다. (예: Designer 에이전트가 데이터 페칭 로직을 수정하면 안 됨)
-3. **제약 조건(Constraints) 준수**: 스킬 문서 하단의 제약 조건을 최우선으로 지켜서 작업하십시오.
+당신은 모든 파일을 수정할 권한이 있지만, **수정하는 파일이 속한 도메인의 제약 사항(Constraints)을 각각 엄격히 지켜야 합니다.**
+
+1. **경계 존중**: 특정 영역을 담당하는 `SKILL.md`에서 금지한 행위(예: Designer 가이드라인에서 데이터 소스 직접 접근 금지)는 절대 하지 마십시오.
+2. **목적 지향성**: 파일을 수정할 때는 해당 영역의 `SKILL.md`에 정의된 **Objective**에 부합하는지 항상 확인하십시오.
+3. **규칙 기반 통합**: 한 번의 프롬프트 내에 여러 계층의 코드를 동시에 수정하더라도, 각 코드는 자신이 속한 계층의 규칙을 완벽하게 준수해야 합니다.
