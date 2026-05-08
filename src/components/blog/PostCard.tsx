@@ -6,24 +6,17 @@ interface PostCardProps {
 
 export function PostCard({ post }: PostCardProps) {
   return (
-    <article className="border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:shadow-md transition-shadow">
-      <a href={`/posts/${post.slug}`} className="block">
-        <h3 className="text-xl font-bold mb-2 hover:text-blue-600 transition-colors">
-          {post.title}
-        </h3>
-        <p className="text-gray-600 dark:text-gray-400 mb-4">
-          {post.description}
-        </p>
-        <div className="flex items-center gap-4 text-sm text-gray-500">
+    <article className="post-card">
+      <a href={`/posts/${post.slug}`} style={{ textDecoration: "none" }}>
+        <h3 className="post-card-title">{post.title}</h3>
+        <p className="post-card-description">{post.description}</p>
+        <div className="post-card-footer">
           <time dateTime={post.publishedAt}>
             {new Date(post.publishedAt).toLocaleDateString()}
           </time>
-          <div className="flex gap-2">
+          <div style={{ display: "flex", gap: "0.5rem" }}>
             {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
-              >
+              <span key={tag} className="tag-badge">
                 #{tag}
               </span>
             ))}

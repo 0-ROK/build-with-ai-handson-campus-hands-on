@@ -30,7 +30,8 @@ describe("Home Page", () => {
     const PageComponent = await Page();
     render(PageComponent);
 
-    expect(screen.getByText("Engineering Blog")).toBeDefined();
+    expect(screen.getByText(/Engineering/i)).toBeDefined();
+    expect(screen.getByText(/Blog/i)).toBeDefined();
     expect(screen.getByText("Test Post")).toBeDefined();
   });
 

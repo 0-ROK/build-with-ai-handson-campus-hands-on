@@ -41,6 +41,25 @@ describe("PostPage", () => {
     expect(screen.getByText("Hello body")).toBeDefined();
   });
 
+  it("renders a post with a series", async () => {
+    getPostPageMock.mockResolvedValue({
+      body: "Series post content",
+      id: "series-post",
+      publishedAt: "2026-05-08",
+      slug: "series-post",
+      tags: ["test"],
+      title: "Series Post",
+      series: "My Series",
+    });
+
+    const page = await PostPage({
+      params: Promise.resolve({ slug: "series-post" }),
+    });
+    render(page);
+
+    expect(screen.getByText("Series: My Series")).toBeDefined();
+  });
+
   it("delegates missing posts to Next notFound", async () => {
     getPostPageMock.mockResolvedValue(null);
     notFoundMock.mockImplementation(() => {

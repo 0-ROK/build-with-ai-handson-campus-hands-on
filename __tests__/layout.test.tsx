@@ -30,6 +30,14 @@ describe("RootLayout", () => {
 
     const body = html.props.children as ReactElement<TestElementProps>;
     expect(body.type).toBe("body");
-    expect(body.props.children).toBe(child);
+
+    // body.props.children is now an array: [SiteHeader, main, SiteFooter]
+    const bodyChildren = body.props
+      .children as ReactElement<TestElementProps>[];
+    expect(bodyChildren).toHaveLength(3);
+
+    const mainWrapper = bodyChildren[1];
+    expect(mainWrapper.type).toBe("main");
+    expect(mainWrapper.props.children).toBe(child);
   });
 });

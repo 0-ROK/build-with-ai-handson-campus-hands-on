@@ -1,0 +1,277 @@
+:root {
+  --primary: #2563eb;
+  --background: #ffffff;
+  --background-dark: #0f172a;
+  --text: #1e293b;
+  --text-dark: #f8fafc;
+  --muted: #64748b;
+  --border: #e2e8f0;
+
+  --surface-container: #ededf9;
+  --surface-container-low: #f3f3fe;
+  --surface-container-high: #e7e7f3;
+
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --radius-standard: 8px;
+  --radius-card: 16px;
+
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f172a;
+    --text: #f8fafc;
+    --border: #1e293b;
+
+    --surface-container: #1e293b;
+    --surface-container-low: #111827;
+    --surface-container-high: #374151;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: var(--text);
+  background: var(--background);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.max-w-4xl {
+  max-width: 56rem;
+}
+
+/* Base UI Components */
+.post-card {
+  background: var(--surface-container);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: block;
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.post-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+  transition: color 0.2s;
+}
+
+.post-card:hover .post-card-title {
+  color: var(--primary);
+}
+
+.post-card-description {
+  color: var(--muted);
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.tag-badge {
+  background: var(--surface-container-high);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-standard);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+/* Page Layout */
+.home-header {
+  margin-bottom: 4rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+  padding-top: 3rem;
+}
+
+.home-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  letter-spacing: -0.025em;
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.home-subtitle {
+  font-size: 1.25rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Site Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  height: 4rem;
+  display: flex;
+  align-items: center;
+}
+
+@media (prefers-color-scheme: dark) {
+  .site-header {
+    background: rgba(15, 23, 42, 0.8);
+  }
+}
+
+.site-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-decoration: none;
+  color: var(--text);
+  letter-spacing: -0.05em;
+}
+
+.site-logo span {
+  color: var(--primary);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--primary);
+}
+
+/* Site Footer */
+.site-footer {
+  margin-top: 8rem;
+  padding: 4rem 0;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--text);
+}
+
+.posts-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+/* Markdown Content */
+.markdown-content {
+  line-height: 1.8;
+  font-size: 1.125rem;
+  color: var(--text);
+}
+
+.md-h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 3rem 0 1.5rem;
+  letter-spacing: -0.025em;
+}
+
+.md-h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin: 2.5rem 0 1.25rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+
+.md-h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem;
+}
+
+.md-ul {
+  margin: 1.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.md-li {
+  margin-bottom: 0.5rem;
+}
+
+.md-code {
+  background: var(--surface-container-high);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+.md-br {
+  display: block;
+  margin-bottom: 1rem;
+  content: "";
+}
